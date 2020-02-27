@@ -20,7 +20,7 @@ import { IProps } from '../../interfaces/IContainer';
     render(): JSX.Element {
         const { theme } = this.props.themeStore;
         return (
-            <Navbar bg={ theme === 'light' ? 'info' : 'dark' } 
+            <Navbar bg={ theme === 'light' ? 'info' : 'dark-green' } 
                     className="d-flex flex-shrink-0 justify-content-between transition-duration__05">
                 <Navbar.Brand className="d-flex align-items-center text-white cursor__pointer">
                     <img src={ Logo } width="32" height="32" className="mr-2" /> React Movie

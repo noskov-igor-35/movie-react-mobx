@@ -11,7 +11,7 @@ import { IProps } from '../../interfaces/IContainer';
         const { theme } = this.props.themeStore;
         return (
             <div className={ `d-flex flex-column flex-fill overflow__auto transition-duration__05
-                             ${ theme === 'light' ? 'bg-white' : 'bg-indigoDark' }` }>
+                             ${ theme === 'light' ? 'bg-white' : 'bg-emerald' }` }>
                 <BrowserRouter>
                     <Switch>
                         <Route exact path='/' component={ Home }/>

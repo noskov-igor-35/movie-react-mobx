@@ -1,22 +1,29 @@
 html, body, #root {
   height: 100%;
 }
+
 .cursor__pointer {
   cursor: pointer;
 }
 
-.overflow__hidden {
-  overflow: hidden;
-}
-
-.overflow__auto {
-  overflow: auto;
+.overflow{
+  &__hidden {
+    overflow: hidden;
+  }
+  &__auto {
+    overflow: auto;
+  }
 }
 
 .transition-duration__05 {
   transition-duration: 0.5s;
 }
 
-.bg-indigoDark{
-  background-color: #3a3b50; //darkslategrey
+.bg{
+  &-emerald {
+    background-color: #22424d;
+  }
+  &-dark-green {
+    background-color: #012c3f !important;
+  }
 }

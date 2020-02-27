@@ -8,7 +8,7 @@ class Previewer extends React.Component<IPreviewer> {
         const { data, theme } = this.props;
         return (
             <div className='Previewer d-flex my-3 mx-4'>
-                <Card bg={ theme === 'light' ? 'light' : 'dark' } className='transition-duration__05'>
+                <Card className={ `transition-duration__05 ${ theme === 'light' ? 'bg-light' : 'bg-dark-green'}` }>
                     <Card.Img variant='top' src={ data.poster_path }/>
                     <Card.Body>
                         <Card.Title className={ `${ theme === 'light' ? 'text-dark' : 'text-light' } transition-duration__05`}>
