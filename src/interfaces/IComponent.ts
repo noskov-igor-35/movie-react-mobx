@@ -2,24 +2,25 @@
 import { IProps } from './IContainer';
 import { IMovie } from './IMovie';
 
-export interface IPreviewer extends IProps {
-    data: IMovie;
+export interface IComponent extends IProps {
     theme: string;
 }
 
-export interface IPagination extends IProps {
+export interface IPreviewer extends IComponent {
+    data: IMovie;
+}
+
+export interface IPagination extends IComponent {
     page: number;
     pageCount: number;
-    theme: string;
     onChangePage: Function;
 }
 
-export interface IPaginationItem extends IProps {
+export interface IPaginationItem extends IComponent {
     type?: string;
     page: number;
     isActive?: boolean;
-    isDisabled?: boolean; 
-    theme: string;
+    isDisabled?: boolean;
     onClick: Function;
 }
 

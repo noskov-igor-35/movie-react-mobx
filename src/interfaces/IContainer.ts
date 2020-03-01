@@ -1,40 +1,24 @@
-import { IThemeStore } from './ITheme';
+import { IСoreStore } from './ICore';
 import { IMovieStore } from './IMovie';
 
-export interface IProps {
-    themeStore?: IThemeStore;
-}
-
 interface IRouter {
-    match: {
+    match?: {
         path: string;
         url: string;
         isExact: boolean;
         params: {
             page: string;
+            search: string;
         }
     };
-    history: {
-        length: number;
-        action: string;
-        location: {
-            pathname: string;
-            search: string;
-            hash: string;
-            state: undefined;
-            key: string;
-        };
-        createHref: Function;
-        push: Function;
-        replace: Function;
-        go: Function;
-        goBack: Function;
-        goForward: Function;
-        block: Function;
-        listen: Function;
-    }
+    history?: History;
 }
 
-export interface IHomePageProps extends IProps, IRouter {
+export interface IProps extends IRouter {
+    coreStore?: IСoreStore;
+    location?: Location;
+}
+
+export interface IHomePageProps extends IProps {
     movieStore?: IMovieStore;
 }

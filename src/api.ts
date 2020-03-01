@@ -30,9 +30,9 @@ function addGenresInMovieList(movies: IMovie[], genres: IGenres[]): IMovie[] {
 }*/
 
 // Метод получения списка фильмов c перечнем жанров по номеру страницы
-function getMovieListWithGenres(page: string): Promise<IMovieData> {
+function getMovieListWithGenres(page: string, search = null): Promise<IMovieData> {
   return new Promise((resolve, reject) => {
-    Promise.all([getMovieList(page), getGenreList()])
+    Promise.all([getMovieList(page, search), getGenreList()])
     .then((data: [IMovieData, IGenres[]]) => {
       resolve({
         page: data[0].page,
@@ -44,9 +44,12 @@ function getMovieListWithGenres(page: string): Promise<IMovieData> {
 }
 
 // Метод получения списка фильмов по номеру страницы
-function getMovieList(page: string): Promise<IMovieData> {
+function getMovieList(page: string, search?: string): Promise<IMovieData> {
   return new Promise((resolve, reject) => {
-    fetch(`${URL}movie/popular${API}${LANGUAGE}&page=${page}`)
+    const url = search ?
+    `${ URL }search/movie${ API }${ LANGUAGE }&page=${ page }&query=${ search }` :
+    `${ URL }movie/popular${ API }${ LANGUAGE }&page=${ page }`;
+    fetch(url)
     .then((response: Response) => response.json())
     .then((data: IServerMovieData) => {
       const movies: IMovie[] = data.results || [];//data.results[0].poster_path

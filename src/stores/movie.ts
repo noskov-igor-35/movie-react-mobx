@@ -9,8 +9,8 @@ class movieStore {
     @observable pageCount: number = null;
     @observable movies: IMovie[] = null;
 
-    @action.bound getMoviePage(page: string): void {
-        getMovieListWithGenres(page).then((res: IMovieData) => {
+    @action.bound getMoviePage(page: string, search: string = null): void {
+        getMovieListWithGenres(page, search).then((res: IMovieData) => {
             runInAction(() => {
                 this.movies = res.movies;
                 this.pageCount = res.maxPage;

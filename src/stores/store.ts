@@ -1,7 +1,7 @@
-import themeStore from './theme';
+import coreStore from './core';
 import movieStore from './movie';
 
 export default {
-    themeStore,
+    coreStore,
     movieStore,
 };
