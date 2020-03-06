@@ -15,6 +15,7 @@ const SEARCH_DELAY = 1000;
         super(props);
         this.search = this.search.bind(this);
         this.changeTheme = this.changeTheme.bind(this);
+        this.goHome = this.goHome.bind(this);
     }
 
     changeTheme(): void {
@@ -34,20 +35,30 @@ const SEARCH_DELAY = 1000;
         }, SEARCH_DELAY);
     }
 
+    goHome(): void {
+        this.props.coreStore.navigate();
+    }
+
     render(): JSX.Element {
-        const { theme, params } = this.props.coreStore;
+        const { theme, page, params } = this.props.coreStore;
+        const showSearchForm = page === 'home';
         return (
             <Navbar bg={ theme === 'light' ? 'info' : 'dark-green' } 
                     className="d-flex flex-shrink-0 justify-content-between transition-duration__05">
-                <Navbar.Brand className="d-flex align-items-center text-white cursor__pointer">
+                <Navbar.Brand className="d-flex align-items-center text-white cursor__pointer" 
+                              onClick={ this.goHome }>
                     <img src={ Logo } width="32" height="32" className="mr-2" /> React Movie
                 </Navbar.Brand>
                 <div className='d-flex align-items-center'>
-                    <FormControl defaultValue={ params?.search || '' } 
+                    {
+                        showSearchForm ?
+                        <FormControl defaultValue={ params?.search || '' } 
                                  type="text" 
                                  placeholder="Поиск" 
                                  className="sm-2" 
-                                 onInput={ this.search }/>
+                                 onInput={ this.search }/> :
+                                 <div></div>
+                    }
                     <a className={ `d-flex ml-3 text-${ theme === 'light' ? "light" : "warning" } cursor__pointer` }>
                         <i className={ `fas ${ theme === 'light' ?  "fa-moon" : "fa-sun" } fa-2x` }
                            onClick={ this.changeTheme }></i>

@@ -28,7 +28,7 @@ const ANIMATE_DELAY = 50;
                         <Route exact path='/' component={ Home }/>
                         <Route exact path='/home/page=:page' component={ Home }/>
                         <Route exact path='/home/page=:page/search=:search' component={ Home }/>
-                        <Route path='/movie/:userId' component={ Movie }/>
+                        <Route path='/movie/id=:id' component={ Movie }/>
                     </Switch>
                 </div>
             </div>

@@ -4,10 +4,21 @@ import './Previewer/Previewer.scss'
 import { IPreviewer } from '../interfaces/IComponent';
 
 class Previewer extends React.Component<IPreviewer> {
+    constructor(props: IPreviewer) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(): void {
+        if (this.props.onClick) {
+            this.props.onClick(this.props.data.id);
+        }
+    }
+
     render(): JSX.Element {
         const { data, theme } = this.props;
         return (
-            <div className='Previewer d-flex my-3 mx-4'>
+            <div className='Previewer d-flex my-3 mx-4 cursor__pointer' onClick={ this.onClick }>
                 <Card className={ `transition-duration__05 ${ theme === 'light' ? 'bg-light' : 'bg-dark-green'}` }>
                     <Card.Img variant='top' src={ data.poster_path }/>
                     <Card.Body>

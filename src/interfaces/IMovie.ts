@@ -15,6 +15,37 @@ export interface IMovie {
     overview: string;
     release_date: string;
 }
+
+interface IProductionCountries {
+    iso_3166_1: string;
+    name: string;
+}
+
+interface ISpokenLanguages {
+    iso_639_1: string;
+    name: string;
+}
+
+interface IProductionCompanies {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+}
+
+export interface IMovieFull extends IMovie {
+    belongs_to_collection: boolean;
+    budget: number;
+    homepage: string;
+    imdb_id: string;
+    production_companies: IProductionCompanies[];
+    production_countries: IProductionCountries[];
+    revenue: number;
+    runtime: number;
+    spoken_languages: ISpokenLanguages[];
+    status: string;
+    tagline: string;
+}
   
 export interface IServerMovieData {
     page: number;

@@ -13,11 +13,12 @@ class coreStore extends RouterStore {
         this.theme = theme;
     };
 
-    @action setUrlParams(params: IRouteParams) {
+    @action setUrlParams(pathname: string, params: IRouteParams) {
+        this.page = pathname.split('/')[1] || 'home';
         this.params = { ...params };
     }
 
-    @action navigate(page: string, params: IRouteParams) {
+    @action navigate(page: string = null, params: IRouteParams = {}) {
         const clearParams = {};
         const paramsArr = [];
         for (var prop in params) {
@@ -26,9 +27,9 @@ class coreStore extends RouterStore {
                 paramsArr.push(`${ prop }=${ params[prop] }`);
             }
         }
-        this.page = page;
+        this.page = page || 'home';
         this.params = clearParams;
-        this.push(`/${page}/${paramsArr.join('/')}`);
+        this.push( page ? `/${page}/${paramsArr.join('/')}` : '/');
     }
 };
 

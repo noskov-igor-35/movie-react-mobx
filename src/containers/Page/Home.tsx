@@ -11,12 +11,19 @@ import { IMovie } from '../../interfaces/IMovie';
 @observer class Home extends React.Component<IHomePageProps> {
     constructor(props: IHomePageProps) {
         super(props);
+        this.openCard = this.openCard.bind(this);
         this.changePages = this.changePages.bind(this);
     }
+
+    openCard(movie: number) {
+        this.props.coreStore.navigate('movie', { id: `${ movie }` });
+    }
+
     changePages(page: number):void {
         let search = this.props.match.params.search;
         this.props.coreStore.navigate('home', { page, search });
     }
+
     render(): JSX.Element {
         const { movies, page, pageCount } = this.props.movieStore;
         const { theme } = this.props.coreStore;
@@ -26,7 +33,7 @@ import { IMovie } from '../../interfaces/IMovie';
                 <div className='d-flex justify-content-around flex-wrap'>
                     {   movies.length ?
                         movies.map((movie: IMovie): React.ReactNode => {
-                            return <Previewer key={ movie.id } data={ movie } theme={ theme }/>
+                            return <Previewer key={ movie.id } data={ movie } theme={ theme } onClick={ this.openCard }/>
                         }) : <Empty theme={ theme }/>
                     }
                 </div>
@@ -50,12 +57,13 @@ import { IMovie } from '../../interfaces/IMovie';
     componentDidUpdate(prevProps: IHomePageProps): void {
         if (this.props.match.params.page !== prevProps.match.params.page || 
             this.props.match.params.search !== prevProps.match.params.search) {
+            this.props.coreStore.setUrlParams(this.props.location.pathname, this.props.match.params);
             this.props.movieStore.getMoviePage(this.props.match.params.page || '1', this.props.match.params.search);
         }
     }
 
     componentDidMount(): void {
-        this.props.coreStore.setUrlParams(this.props.match.params);
+        this.props.coreStore.setUrlParams(this.props.location.pathname, this.props.match.params);
         this.props.movieStore.getMoviePage(this.props.match.params.page || '1', this.props.match.params.search);
     }
 }

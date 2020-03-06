@@ -1,4 +1,4 @@
-import { IServerMovieData, IServerGenresData, IMovieData, IMovie, IGenres } from './interfaces/IMovie';
+import { IServerMovieData, IServerGenresData, IMovieData, IMovie, IGenres, IMovieFull } from './interfaces/IMovie';
 
 const URL: string = 'https://api.themoviedb.org/3/';
 const LANGUAGE: string = '&language=ru-RU';
@@ -76,17 +76,17 @@ function getGenreList(): Promise<IGenres[]> {
 }
 
 // Метод получения данных о фильме
-/*function getMovie(id) {
+function getMovie(id: string) {
   return new Promise((resolve, reject) => {
     fetch(`${URL}movie/${id}${API}${LANGUAGE}`)
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch((e) => reject(e));
+    .then((response: Response) => response.json())
+    .then((data: IMovieFull) => resolve(data))
+    .catch((e: Error) => reject(e));
   });
-};*/
+};
 
 export {
   //getRecommendationsList,
   getMovieListWithGenres,
-  //getMovie,
+  getMovie,
 };

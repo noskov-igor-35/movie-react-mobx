@@ -8,12 +8,13 @@ export interface IComponent extends IProps {
 
 export interface IPreviewer extends IComponent {
     data: IMovie;
+    onClick?: Function;
 }
 
 export interface IPagination extends IComponent {
     page: number;
     pageCount: number;
-    onChangePage: Function;
+    onChangePage?: Function;
 }
 
 export interface IPaginationItem extends IComponent {
