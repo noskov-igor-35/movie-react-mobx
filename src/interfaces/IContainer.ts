@@ -19,6 +19,10 @@ export interface IProps extends IRouter {
     location?: Location;
 }
 
+export interface IHeaderState {
+    search: string;
+}
+
 export interface IHomePageProps extends IProps {
     movieStore?: IMovieStore;
 }

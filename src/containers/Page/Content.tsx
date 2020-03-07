@@ -47,8 +47,6 @@ const ANIMATE_DELAY = 50;
           }, ANIMATE_DELAY);
         }
     }
-
-    
 }
 
 export default withRouter(Content);
