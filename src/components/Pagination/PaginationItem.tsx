@@ -30,7 +30,7 @@ class PaginationItem extends React.Component<IPaginationItem> {
             <Button variant={ variant } 
                     active={ isActive } 
                     disabled={ isActive || isDisabled } 
-                    className={ `font-weight-bold transition-duration__05${ isActive ? ' btn-isActive' : '' }` }
+                    className={ `font-weight-bold transition${ isActive ? ' btn-isActive' : '' }` }
                     onClick={ this.onClick }>
                 { type ? <i className={`fas ${ ICONS[type] }`}></i> : page }
             </Button>

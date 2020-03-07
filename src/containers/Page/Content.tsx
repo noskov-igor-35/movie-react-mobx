@@ -20,9 +20,9 @@ const ANIMATE_DELAY = 50;
     render(): JSX.Element {
         const { theme } = this.props.coreStore;
         return (
-            <div className={ `d-flex flex-column flex-fill overflow__hidden scroll-theme-${ theme } transition-duration__05` }>
+            <div className={ `d-flex flex-column flex-fill overflow__hidden scroll-theme-${ theme } transition` }>
                 <div ref={ this.scrollContainer } 
-                     className={ `d-flex flex-fill flex-column transition-duration__05 overflow__auto 
+                     className={ `d-flex flex-fill flex-column transition overflow__auto 
                                  ${ theme === 'light' ? 'bg-white' : 'bg-emerald' }` }>
                     <Switch>
                         <Route exact path='/' component={ Home }/>

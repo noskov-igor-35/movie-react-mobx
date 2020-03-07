@@ -35,12 +35,13 @@ html, body, #root {
   }
   &-dark {
     ::-webkit-scrollbar-thumb {
-      background: #ffc107;
+      background-color: #ffc107;
     }
   }
 }
 
-.transition-duration__05 {
+.transition {
+  transition-property: color, background-color;
   transition-duration: 0.5s;
 }
 

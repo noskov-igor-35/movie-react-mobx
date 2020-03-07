@@ -17,7 +17,7 @@ import Spinner from 'react-bootstrap/Spinner';
                 { JSON.stringify(movie) }
             </div> : 
             <div className='d-flex flex-grow-1 flex-shrink-0  justify-content-center align-items-center'>
-                <Spinner className='transition-duration__05' 
+                <Spinner className='transition' 
                          animation='border' 
                          variant={ theme === 'light' ? 'info' : 'warning' } />
             </div>
