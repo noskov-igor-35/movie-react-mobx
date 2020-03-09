@@ -9,7 +9,7 @@ export interface IMovie {
     original_language: string;
     original_title: string;
     genre_ids: number[];
-    genres?: string[];
+    genres?: IGenre[];
     title: string;
     vote_average: number;
     overview: string;
@@ -70,10 +70,10 @@ export interface IMovieStore {
 }
 
 export interface IServerGenresData {
-    genres: IGenres[];
+    genres: IGenre[];
 }
 
-export interface IGenres {
+export interface IGenre {
     id: number;
     name: string;
 }

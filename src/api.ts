@@ -1,17 +1,17 @@
-import { IServerMovieData, IServerGenresData, IMovieData, IMovie, IGenres, IMovieFull } from './interfaces/IMovie';
+import { IServerMovieData, IServerGenresData, IMovieData, IMovie, IGenre, IMovieFull } from './interfaces/IMovie';
 
 const URL: string = 'https://api.themoviedb.org/3/';
 const LANGUAGE: string = '&language=ru-RU';
 const API: string = '?api_key=fceda9b573bf2b2c108c1f9c2bc407d1';
 
 // Метод добавляющий перечень жанров в список фильмов
-function addGenresInMovieList(movies: IMovie[], genres: IGenres[]): IMovie[] {
+function addGenresInMovieList(movies: IMovie[], genres: IGenre[]): IMovie[] {
   // Обходим все фильмы
   return movies.map((movie: IMovie) => {
     // Получаем список жанров на основе имеющихся id жанров
-    const genres_name: string[] = movie.genre_ids.map((genreId: number): string => {
+    const genres_name: IGenre[] = movie.genre_ids.map((genreId: number): IGenre => {
       // Находим запись у которой id совпадает с id жанра из списка фильмов и возвращаем из записи имя
-      return genres.find((genre: IGenres): boolean => genre.id === genreId).name;
+      return { ...genres.find((genre: IGenre): boolean => genre.id === genreId) };
     });
     // Добавляем полученный перечень жанров и возвращаем щапись фильма
     movie.genres = genres_name;
@@ -33,7 +33,7 @@ function addGenresInMovieList(movies: IMovie[], genres: IGenres[]): IMovie[] {
 function getMovieListWithGenres(page: string, search = null): Promise<IMovieData> {
   return new Promise((resolve, reject) => {
     Promise.all([getMovieList(page, search), getGenreList()])
-    .then((data: [IMovieData, IGenres[]]) => {
+    .then((data: [IMovieData, IGenre[]]) => {
       resolve({
         page: data[0].page,
         maxPage: data[0].maxPage,
@@ -54,7 +54,7 @@ function getMovieList(page: string, search?: string): Promise<IMovieData> {
     .then((data: IServerMovieData) => {
       const movies: IMovie[] = data.results || [];//data.results[0].poster_path
       movies.forEach((movie: IMovie) => {
-        movie.poster_path = `http://image.tmdb.org/t/p/w500${ movie.poster_path }`;
+        if (movie.poster_path) movie.poster_path = `http://image.tmdb.org/t/p/w500${ movie.poster_path }`;
       });
       resolve({
         page: data.page,
@@ -66,7 +66,7 @@ function getMovieList(page: string, search?: string): Promise<IMovieData> {
 }
 
 // Метод получения перечня жанров
-function getGenreList(): Promise<IGenres[]> {
+function getGenreList(): Promise<IGenre[]> {
   return new Promise((resolve, reject) => {
     fetch(`${URL}genre/movie/list${API}${LANGUAGE}`)
     .then((response: Response) => response.json())

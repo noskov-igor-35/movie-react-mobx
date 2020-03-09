@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { getStringDateFromSQL, timeOnTheClock } from '../../../helpers';
+// @ts-ignore
+import EmptyImg from '../../../images/empry.png';
 import './Info/Info.scss';
-// import { IMoviePageProps } from '../../interfaces/IContainer';
+import { IMoviePageProps } from '../../../interfaces/IContainer';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w500';
 
 @inject('movieStore', 'coreStore')
-@observer class Info extends React.Component<any> {
+@observer class Info extends React.Component<IMoviePageProps> {
     render(): JSX.Element {
         const { movie } = this.props.movieStore;
         const { theme } = this.props.coreStore;
 
-        const logoPath: string = `${POSTER_PATH}${movie.poster_path}`;
+        const logoPath: string = movie.poster_path ? `${POSTER_PATH}${movie.poster_path}` : null;
         const title: string = movie.title || movie.original_title;
         const subTitle: string = movie.title ? movie.original_title : null;
         const genres: string = movie.genres ? movie.genres.map(genre => genre.name).join(', ') : null;
@@ -24,7 +26,7 @@ const POSTER_PATH = 'http://image.tmdb.org/t/p/w500';
                     <div className={ `d-inline-flex p-3 
                                       transition ${ theme === 'light' ? 'bg-light' : 'bg-dark-green'} ` }>
                         <div>
-                            <img className='movie-info__logo' src={ logoPath } alt={ title } />
+                            <img className='movie-info__logo' src={ logoPath ?? EmptyImg } alt={ title } />
                         </div>
                     </div>
                 </div>
