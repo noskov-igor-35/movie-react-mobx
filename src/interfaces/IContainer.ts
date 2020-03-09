@@ -9,6 +9,7 @@ interface IRouter {
         params: {
             page: string;
             search: string;
+            id: string;
         }
     };
     history?: History;
@@ -24,5 +25,9 @@ export interface IHeaderState {
 }
 
 export interface IHomePageProps extends IProps {
+    movieStore?: IMovieStore;
+}
+
+export interface IMoviePageProps extends IProps {
     movieStore?: IMovieStore;
 }

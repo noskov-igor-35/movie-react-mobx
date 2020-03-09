@@ -18,6 +18,7 @@ const SEARCH_DELAY = 1000;
         this.changeTheme = this.changeTheme.bind(this);
         this.updateDimensions = this.updateDimensions.bind(this);
         this.goHome = this.goHome.bind(this);
+        this.goBack = this.goBack.bind(this);
 
         this.searchRef = React.createRef();
         this.state = {
@@ -58,16 +59,28 @@ const SEARCH_DELAY = 1000;
         this.props.coreStore.navigate();
     }
 
+    goBack(): void {
+        this.props.coreStore.goBack();
+    }
+
     render(): JSX.Element {
-        const { theme, page, isMobile, params } = this.props.coreStore;
+        const { theme, page, pageSize, params } = this.props.coreStore;
         const defaultSearch: string = params?.search || '';
         const showSearchForm: boolean = page === 'home';
         return (
             <Navbar bg={ theme === 'light' ? 'info' : 'dark-green' } 
-                    className="d-flex flex-shrink-0 justify-content-between transition">
-                <Navbar.Brand className="d-flex align-items-center text-white cursor__pointer" 
-                              onClick={ this.goHome }>
-                    <img src={ Logo } width="32" height="32" className="mr-2" />{ isMobile ? '' : 'React Movie' }
+                    className='Header d-flex flex-shrink-0 justify-content-between transition'>
+                <Navbar.Brand className='d-flex align-items-center text-white cursor__pointer'>
+                    <img src={ Logo } width='32' height='32' onClick={ this.goHome }/>
+                    {
+                        page === 'movie' ?
+                        <div className='pl-2 align-self-stretch' onClick={ this.goBack }>
+                            <i className='fas fa-backspace'></i> Назад
+                        </div> :
+                        <div className='pl-2 align-self-stretch' onClick={ this.goHome }>
+                            { pageSize === 's' ? '' : 'React Movie' }
+                        </div>
+                    }
                 </Navbar.Brand>
                 <div className='d-flex align-items-center'>
                     {
@@ -80,8 +93,8 @@ const SEARCH_DELAY = 1000;
                                    onInput={ this.search }/> :
                             <div></div>
                     }
-                    <a className={ `d-flex ml-3 text-${ theme === 'light' ? "light" : "warning" } cursor__pointer` }>
-                        <i className={ `fas ${ theme === 'light' ?  "fa-moon" : "fa-sun" } fa-2x` }
+                    <a className={ `d-flex ml-3 text-${ theme === 'light' ? 'light' : 'warning' } cursor__pointer` }>
+                        <i className={ `fas ${ theme === 'light' ?  'fa-moon' : 'fa-sun' } fa-2x` }
                            onClick={ this.changeTheme }></i>
                     </a>
                     {
@@ -95,7 +108,6 @@ const SEARCH_DELAY = 1000;
     }
 
     componentDidMount() {
-        this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions);
     }
 

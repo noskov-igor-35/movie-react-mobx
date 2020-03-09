@@ -63,7 +63,9 @@ export interface IMovieData {
 export interface IMovieStore {
     page: number;
     pageCount: number;
+    movie: IMovieFull;
     movies: IMovie[];
+    getMovie: Function;
     getMoviePage: Function;
 }
 

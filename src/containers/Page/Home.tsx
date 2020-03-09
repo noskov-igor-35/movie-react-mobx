@@ -28,7 +28,7 @@ import { IMovie } from '../../interfaces/IMovie';
         const { movies, page, pageCount } = this.props.movieStore;
         const { theme } = this.props.coreStore;
         return (
-            movies ?
+            movies && page === Number(this.props.match.params.page || '1') ?
             <div className='d-flex flex-grow-1 flex-shrink-0 flex-column'>
                 <div className='d-flex justify-content-around flex-wrap'>
                     {   movies.length ?
@@ -57,13 +57,11 @@ import { IMovie } from '../../interfaces/IMovie';
     componentDidUpdate(prevProps: IHomePageProps): void {
         if (this.props.match.params.page !== prevProps.match.params.page || 
             this.props.match.params.search !== prevProps.match.params.search) {
-            this.props.coreStore.setUrlParams(this.props.location.pathname, this.props.match.params);
             this.props.movieStore.getMoviePage(this.props.match.params.page || '1', this.props.match.params.search);
         }
     }
 
     componentDidMount(): void {
-        this.props.coreStore.setUrlParams(this.props.location.pathname, this.props.match.params);
         this.props.movieStore.getMoviePage(this.props.match.params.page || '1', this.props.match.params.search);
     }
 }

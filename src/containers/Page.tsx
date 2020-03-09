@@ -14,7 +14,7 @@ const history = syncHistoryWithStore(browserHistory, store.coreStore);
 
 function Page(): JSX.Element {
     return (
-        <div className='d-flex flex-column flex-fill overflow__hidden'>
+        <div className='Page d-flex flex-column flex-grow-1 flex-shrink-1 overflow__hidden'>
             <Provider Provider { ...store }>
                 <Router history={ history }>
                     <Header/>

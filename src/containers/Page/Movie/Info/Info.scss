@@ -1,0 +1,13 @@
+.movie-info {
+    &__logo {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .movie-info {
+        &__logo {
+            width: 300px;
+        }
+    }
+}

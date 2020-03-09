@@ -16,8 +16,20 @@ html, body, #root {
   }
   &__auto {
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
+
+/*.Header {
+  position: fixed !important;
+  height: 58px;
+  width: 100%;
+  z-index: 1;
+}
+
+.Content {
+  margin-top: 58px;
+}*/
 
 .scroll-theme {
   &-light, &-dark {

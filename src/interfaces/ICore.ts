@@ -17,11 +17,10 @@ export interface IRouteParams {
 export interface IСoreStore extends IRouter {
     theme: string;
     screenWidth: number;
-    isMobile: boolean;
+    pageSize: string;
     page: string;
     params: IRouteParams;
     changeTheme: Function;
     changeSize: Function;
     navigate: Function;
-    setUrlParams: Function;
 }

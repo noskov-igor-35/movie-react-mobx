@@ -5,8 +5,8 @@ import Home from './Home';
 import Movie from './Movie';
 import { IProps } from '../../interfaces/IContainer';
 
-const ANIMATE_STEP = 250;
-const ANIMATE_DELAY = 50;
+/*const ANIMATE_STEP = 250;
+const ANIMATE_DELAY = 50;*/
 
 @inject('coreStore')
 @observer class Content extends React.Component<IProps> {
@@ -20,16 +20,19 @@ const ANIMATE_DELAY = 50;
     render(): JSX.Element {
         const { theme } = this.props.coreStore;
         return (
-            <div className={ `d-flex flex-column flex-fill overflow__hidden scroll-theme-${ theme } transition` }>
+            <div className={ `Content d-flex flex-column flex-grow-1 flex-shrink-1 
+                              overflow__hidden scroll-theme-${ theme } transition` }>
                 <div ref={ this.scrollContainer } 
-                     className={ `d-flex flex-fill flex-column transition overflow__auto 
+                     className={ `d-flex flex-grow-1 flex-shrink-1 flex-column transition overflow__auto 
                                  ${ theme === 'light' ? 'bg-white' : 'bg-emerald' }` }>
-                    <Switch>
-                        <Route exact path='/' component={ Home }/>
-                        <Route exact path='/home/page=:page' component={ Home }/>
-                        <Route exact path='/home/page=:page/search=:search' component={ Home }/>
-                        <Route path='/movie/id=:id' component={ Movie }/>
-                    </Switch>
+                    <div className='d-flex flex-column flex-grow-1 flex-shrink-0'>
+                        <Switch>
+                            <Route exact path='/' component={ Home }/>
+                            <Route exact path='/home/page=:page' component={ Home }/>
+                            <Route exact path='/home/page=:page/search=:search' component={ Home }/>
+                            <Route path='/movie/id=:id' component={ Movie }/>
+                        </Switch>
+                    </div>
                 </div>
             </div>
         );
@@ -41,10 +44,11 @@ const ANIMATE_DELAY = 50;
           const list = this.scrollContainer.current;
 
           // Сролл будет постепенным, создавая эффект анимации
-          let scrollAnimate = setInterval(() => {
+          /*let scrollAnimate = setInterval(() => {
             list.scrollTop = list.scrollTop >= ANIMATE_STEP ? list.scrollTop - ANIMATE_STEP : 0;
             if (!list.scrollTop) clearInterval(scrollAnimate);
-          }, ANIMATE_DELAY);
+          }, ANIMATE_DELAY);*/
+          list.scrollTop = 0;
         }
     }
 }
