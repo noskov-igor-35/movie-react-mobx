@@ -13,7 +13,7 @@ const PAGE_SIZES = {
 }
 
 class coreStore extends RouterStore {
-    @observable theme: string = 'light';
+    @observable theme: string = localStorage.getItem('theme') ?? 'light';
     @observable screenWidth: number;
 
     constructor() {
@@ -22,6 +22,7 @@ class coreStore extends RouterStore {
     };
 
     @action changeTheme(theme: string): void {
+        localStorage.setItem('theme', theme);
         this.theme = theme;
     };
 
