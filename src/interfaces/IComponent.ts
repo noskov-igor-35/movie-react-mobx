@@ -14,6 +14,7 @@ export interface IPreviewer extends IComponent {
 export interface IPagination extends IComponent {
     page: number;
     pageCount: number;
+    isFull: boolean;
     onChangePage?: Function;
 }
 

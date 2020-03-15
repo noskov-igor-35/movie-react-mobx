@@ -1,7 +1,45 @@
+
 import * as React from 'react';
-import PaginationItem from './Pagination/PaginationItem';
-import './Pagination/Pagination.scss'
-import { IPagination } from '../interfaces/IComponent';
+import Button from 'react-bootstrap/Button';
+import { IPagination, IPaginationItem, IPaginationItemIcons } from '../interfaces/IComponent';
+import './Pagination/Pagination.scss';
+
+
+const ICONS: IPaginationItemIcons = {
+    first: 'fa-angle-double-left',
+    prev: 'fa-angle-left',
+    next: 'fa-angle-right',
+    last: 'fa-angle-double-right',
+}
+
+class PaginationItem extends React.Component<IPaginationItem> {
+    constructor(props: IPaginationItem) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(): void {
+        this.props.onClick(this.props.page);
+    }
+
+    render(): JSX.Element {
+        const { type, page, isActive, isDisabled, theme } = this.props;
+
+        // TODO: написать enum
+        const variant = isActive ? ( theme === 'light' ? 'info' : 'dark') : ( theme === 'light' ? 'light' : 'warning' );
+
+        return (
+            <Button variant={ variant } 
+                    active={ isActive } 
+                    disabled={ isActive || isDisabled } 
+                    className={ `font-weight-bold transition${ isActive ? ' btn-isActive' : '' }` }
+                    onClick={ this.onClick }>
+                { type ? <i className={`fas ${ ICONS[type] }`}></i> : page }
+            </Button>
+        );
+    }
+}
+
 
 class Pagination extends React.Component<IPagination> {
     constructor(props: IPagination) {
@@ -15,11 +53,12 @@ class Pagination extends React.Component<IPagination> {
     }
 
     render(): JSX.Element {
-        const { page, pageCount, theme } = this.props;
+        const { page, pageCount, theme, isFull } = this.props;
 
         // Расчет крайних значений
-        const minPage: number = page - 2 < 1 ? 1 : page - 2;
-        const maxPage: number = page + 2 > pageCount ? pageCount : page + 2;
+        const step: number = isFull ? 2 : 1;
+        const minPage: number = page - step < 1 ? 1 : page - step;
+        const maxPage: number = page + step > pageCount ? pageCount : page + step;
 
         // Переходы назад
         const items: React.ReactNodeArray = [
@@ -29,13 +68,17 @@ class Pagination extends React.Component<IPagination> {
                             isDisabled={ page === 1 } 
                             theme={ theme } 
                             onClick={ this.onClick }/>,
-            <PaginationItem key='prev' 
-                            type='prev' 
-                            page={ page - 1 } 
-                            isDisabled={ page === 1 } 
-                            theme={ theme }
-                            onClick={ this.onClick }/>
         ];
+        if (isFull) {
+            items.push(
+                <PaginationItem key='prev' 
+                                type='prev' 
+                                page={ page - 1 } 
+                                isDisabled={ page === 1 } 
+                                theme={ theme }
+                                onClick={ this.onClick }/>,
+            );
+        }
 
         // Кнопки
         for (let number: number = minPage; number <= maxPage; number++) {
@@ -49,19 +92,23 @@ class Pagination extends React.Component<IPagination> {
         }
 
         // Переходы вперед
+        if (isFull) {
+            items.push(
+                <PaginationItem key='next' 
+                                type='next' 
+                                page={ page + 1 } 
+                                isDisabled={ page === pageCount } 
+                                theme={ theme }
+                                onClick={ this.onClick }/>,
+            );
+        }
         items.push(
-            <PaginationItem key='next' 
-                            type='next' 
-                            page={ page + 1 } 
-                            isDisabled={ page === pageCount } 
-                            theme={ theme }
-                            onClick={ this.onClick }/>,
             <PaginationItem key='last' 
                             type='last' 
                             page={ pageCount } 
                             isDisabled={ page === pageCount } 
                             theme={ theme }
-                            onClick={ this.onClick }/>
+                            onClick={ this.onClick }/>,
         );
 
         return (

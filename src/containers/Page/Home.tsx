@@ -26,7 +26,7 @@ import { IMovie } from '../../interfaces/IMovie';
 
     render(): JSX.Element {
         const { movies, page, pageCount } = this.props.movieStore;
-        const { theme } = this.props.coreStore;
+        const { pageSize, theme } = this.props.coreStore;
         return (
             movies && page === Number(this.props.match.params.page || '1') ?
             <div className='d-flex flex-grow-1 flex-shrink-0 flex-column'>
@@ -39,9 +39,10 @@ import { IMovie } from '../../interfaces/IMovie';
                 </div>
                 { pageCount > 1 ?
                     <div className='d-flex flex-grow-1 justify-content-center my-4'>
-                        <Pagination page={ page } 
-                                    pageCount={ pageCount } 
-                                    theme={ theme } 
+                        <Pagination page={ page }
+                                    pageCount={ pageCount }
+                                    isFull={ pageSize !== 's' }
+                                    theme={ theme }
                                     onChangePage={ this.changePages}/>
                     </div> : <div></div>
                 }
