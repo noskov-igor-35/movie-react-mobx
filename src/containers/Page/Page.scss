@@ -1,5 +1,5 @@
 
-$scroll-10: 10px;
+@import "../../aliases.scss";
 
 
 html, body, #root {
@@ -36,18 +36,18 @@ html, body, #root {
     ::-webkit-scrollbar {
       width: $scroll-10;
       &-track {
-        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        box-shadow: inset 0 0 6px $track-color;
         border-radius: $scroll-10;
       }
       &-thumb {
-        box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        box-shadow: inset 0 0 6px $thumb-color;
         border-radius: $scroll-10;
       }
     }
   }
   &-dark {
     ::-webkit-scrollbar-thumb {
-      background-color: #ffc107;
+      background-color: $warning-color;
     }
   }
 }
@@ -59,9 +59,9 @@ html, body, #root {
 
 .bg{
   &-emerald {
-    background-color: #22424d;
+    background-color: $warning-emerald;
   }
   &-dark-green {
-    background-color: #012c3f !important;
+    background-color: $warning-dark-green !important;
   }
 }

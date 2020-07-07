@@ -1,0 +1,27 @@
+@import "../../aliases.scss";
+
+.Alert {
+    position: fixed;
+    right: 40px;
+    top: 60px;
+    height: 0;
+    width: 200px;
+    &-bg__info {
+        .close {
+            color: $light-color !important;
+        }
+    }
+    &-bg__green {
+        .close {
+            color: $warning-color !important;
+        }
+    }
+    &-bg__info, &-bg__green {
+        .close {
+            opacity: .75;
+            &:not(:disabled):not(.disabled):hover {
+                opacity: 1;
+            }
+        }
+    }
+}

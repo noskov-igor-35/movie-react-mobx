@@ -32,3 +32,13 @@ export interface IPaginationItemIcons {
     next: string;
     last: string;
 }
+
+export interface IAlert extends IComponent {
+    title?: string;
+    text?: string;
+    onClose?: Function;
+}
+
+export interface IAlertState {
+    isOpen: boolean;
+}
